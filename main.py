@@ -149,7 +149,15 @@ deliver_packages(trucks[2], distance_data, address_data, package_hash_table)
 # Main Program Class
 class Main:
     def __init__(self):
-        print("Welcome to the Western Governors University Parcel Service (WGUPS)")
+        print(
+            f"""
+ __     __     ______     __  __     ______   ______    
+/\ \  _ \ \   /\  ___\   /\ \/\ \   /\  == \ /\  ___\   
+\ \ \/ ".\ \  \ \ \__ \  \ \ \_\ \  \ \  _-/ \ \___  \  
+ \ \__/".~\_\  \ \_____\  \ \_____\  \ \_\    \/\_____\ 
+  \/_/   \/_/   \/_____/   \/_____/   \/_/     \/_____/ 
+  """
+        )
 
         while True:
             print("\nSelect from the options below:")
@@ -168,7 +176,7 @@ class Main:
                 elif choice == 3:
                     self.display_all_packages_at_time()
                 elif choice == 4:
-                    print("Exiting Program")
+                    print("Program Ended")
                     break
                 else:
                     print("Invalid Choice. Please Try Again")
@@ -189,19 +197,19 @@ class Main:
             if packageID in {2, 3, 9, 18, 36, 38, 39, 7, 8, 10, 11, 12, 23, 24}:
                 print(
                     f"Package {package.id}: {package.address} {package.city} {package.state} "
-                    f"{package.zipcode} {package.deadline_time} {package.weight} "
+                    f"{package.zipcode} {package.deadline} {package.weight} "
                     f"Delivered at {package.delivery_time} by Truck 2"
                 )
             elif packageID in {13, 1, 14, 19, 16, 15, 20, 40, 29, 30, 31, 34, 37, 17}:
                 print(
                     f"Package {package.id}: {package.address} {package.city} {package.state} "
-                    f"{package.zipcode} {package.deadline_time} {package.weight} "
+                    f"{package.zipcode} {package.deadline} {package.weight} "
                     f"Delivered at {package.delivery_time} by Truck 1"
                 )
             elif packageID in {4, 5, 6, 28, 32, 33, 21, 22, 35, 27, 25, 26, 24}:
                 print(
                     f"Package {package.id}: {package.address} {package.city} {package.state} "
-                    f"{package.zipcode} {package.deadline_time} {package.weight} "
+                    f"{package.zipcode} {package.deadline} {package.weight} "
                     f"Delivered at {package.delivery_time} by Truck 3"
                 )
 
@@ -234,7 +242,7 @@ class Main:
         package.update_status(convert_timedelta)
         print(
             f"Package {package.id}: {package.address} {package.city} {package.state} "
-            f"{package.zipcode} {package.deadline_time} {package.weight} {package.status}"
+            f"{package.zipcode} {package.deadline} {package.weight} {package.status}"
         )
 
     def display_all_packages_at_time(self):
@@ -257,7 +265,7 @@ class Main:
             package.update_status(convert_timedelta)
             print(
                 f"Package {package.id}: {package.address} {package.city} {package.state} "
-                f"{package.zipcode} {package.deadline_time} {package.weight} {package.status}"
+                f"{package.zipcode} {package.deadline} {package.weight} {package.status}"
             )
 
 

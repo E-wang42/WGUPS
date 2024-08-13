@@ -16,12 +16,16 @@ class Package:
         self.departureTime = None
 
     def update_status(self, time):
-        if self.deliveryTime < time:
-            self.status = "Delivered"
-        elif self.departureTime > time:
-            self.status = "En route"
+        if self.deliveryTime is None:
+            if self.departureTime is None or self.departureTime > time:
+                self.status = "At Hub"
+            else:
+                self.status = "In Transit"
         else:
-            self.status = "At hub"
+            if self.deliveryTime < time:
+                self.status = f"Delivered at {self.deliveryTime}"
+            else:
+                self.status = "In Transit"
 
     def __str__(self):
         if self.status == "Delivered":
