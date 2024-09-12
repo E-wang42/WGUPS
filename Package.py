@@ -14,18 +14,17 @@ class Package:
         self.status = "At hub"
         self.deliveryTime = None
         self.departureTime = None
+        self.truckNumber = None
 
     def update_status(self, time):
-        if self.deliveryTime is None:
-            if self.departureTime is None or self.departureTime > time:
-                self.status = "At Hub"
-            else:
-                self.status = "In Transit"
-        else:
-            if self.deliveryTime < time:
-                self.status = f"Delivered at {self.deliveryTime}"
-            else:
-                self.status = "In Transit"
+        if time < self.departureTime:
+            self.status = "At Hub"
+            self.deliveryTime = None
+        elif time < self.deliveryTime:
+            self.status = "En Route"
+            self.deliveryTime = None
+        print(self)
+        return
 
     def __str__(self):
         if self.status == "Delivered":

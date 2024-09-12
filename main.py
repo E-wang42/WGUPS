@@ -35,6 +35,7 @@ def load_package_data(package_data, package_hash_table):
         pDeadline_time = package[5]
         pWeight = package[6]
         pStatus = "At Hub"
+        pTruckNumber = None
 
         package_obj = Package(
             pID, pAddress, pCity, pState, pZipcode, pDeadline_time, pWeight, pStatus
@@ -47,7 +48,7 @@ def calculate_distance(x_value, y_value, distance_data):
     if x_value is None or y_value is None:
         raise ValueError(f"Invalid address index: x_value={x_value}, y_value={y_value}")
 
-    print(f"x_value: {x_value}, y_value: {y_value}")  # Debugging statement
+    # print(f"x_value: {x_value}, y_value: {y_value}")  # Debugging statement
     distance = distance_data[x_value][y_value]
     if distance == "":
         distance = distance_data[y_value][x_value]
@@ -58,7 +59,7 @@ def calculate_distance(x_value, y_value, distance_data):
 def get_address_index(address, address_data):
     """
     Returns the index of the address in the address list.
-    Time Complexity: O(m)
+    Time Complexity: O(n)
     Space Complexity: O(1)
     """
     for row in address_data:
