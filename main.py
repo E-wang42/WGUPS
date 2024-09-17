@@ -35,7 +35,6 @@ def load_package_data(package_data, package_hash_table):
         pDeadline_time = package[5]
         pWeight = package[6]
         pStatus = "At Hub"
-        pTruckNumber = None
 
         package_obj = Package(
             pID, pAddress, pCity, pState, pZipcode, pDeadline_time, pWeight, pStatus
@@ -116,6 +115,8 @@ def deliver_packages(truck, distance_data, address_data, package_hash_table):
     undelivered_packages = [package_hash_table.get(pid) for pid in truck.packages]
     truck.packages.clear()
 
+    truck.time = truck.depart_time
+
     while undelivered_packages:
         nearest_package = min(
             undelivered_packages,
@@ -130,13 +131,16 @@ def deliver_packages(truck, distance_data, address_data, package_hash_table):
             get_address_index(nearest_package.address, address_data),
             distance_data,
         )
-        truck.packages.append(nearest_package.id)
+        # truck.packages.append(nearest_package.id)
         undelivered_packages.remove(nearest_package)
         truck.mileage += distance_to_next
         truck.address = nearest_package.address
-        truck.time += datetime.timedelta(hours=distance_to_next / 18)
-        nearest_package.delivery_time = truck.time
-        nearest_package.departure_time = truck.depart_time
+        travel_time = datetime.timedelta(hours=distance_to_next / truck.speed)
+        truck.time += travel_time
+        # truck.time += datetime.timedelta(hours=distance_to_next / 18)
+        nearest_package.deliveryTime = truck.time
+        nearest_package.departureTime = truck.depart_time
+        nearest_package.status = "Delivered"
 
 
 # Deliver packages using the trucks
