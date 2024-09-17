@@ -12,6 +12,7 @@ class Package:
         self.weight = weight
         self.notes = notes
         self.status = "At hub"
+        self.truckID = None
         self.deliveryTime = None
         self.departureTime = None
         self.address_corrected = False

@@ -153,6 +153,7 @@ def deliver_packages(truck, distance_data, address_data, package_hash_table):
         # truck.time += datetime.timedelta(hours=distance_to_next / 18)
         nearest_package.deliveryTime = truck.time
         nearest_package.departureTime = truck.depart_time
+        nearest_package.truckID = truck.truckID
         nearest_package.status = "Delivered"
 
 
@@ -259,9 +260,11 @@ class Main:
 
         package = package_hash_table.get(chosen)
         package.update_status(convert_timedelta)
+
+        truck_info = f"by Truck {package.truckID}" if package.truckID else ""
         print(
             f"Package {package.id}: {package.address} {package.city} {package.state} "
-            f"{package.zipcode} {package.deadline} {package.weight} {package.status}"
+            f"{package.zipcode} {package.deadline} {package.weight} {package.status}{truck_info}"
         )
 
     def display_all_packages_at_time(self):
@@ -282,9 +285,11 @@ class Main:
         for packageID in range(1, 41):
             package = package_hash_table.get(packageID)
             package.update_status(convert_timedelta)
+
+            truck_info = f"by Truck {package.truckID}" if package.truckID else ""
             print(
                 f"Package {package.id}: {package.address} {package.city} {package.state} "
-                f"{package.zipcode} {package.deadline} {package.weight} {package.status}"
+                f"{package.zipcode} {package.deadline} {package.weight} {package.status}{truck_info}"
             )
 
 
