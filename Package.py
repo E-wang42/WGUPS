@@ -15,6 +15,10 @@ class Package:
         self.deliveryTime = None
         self.departureTime = None
         self.address_corrected = False
+        self.availableTime = datetime.timedelta(hours=8)
+
+        if "Delayed" in self.notes:
+            self.availableTime = datetime.timedelta(hours=9, minutes=5)
 
     def update_status(self, time):
         if self.id == 9 and not self.address_corrected:
@@ -29,7 +33,11 @@ class Package:
         if self.departureTime and time < self.departureTime:
             self.status = "At Hub"
             self.deliveryTime = None
-        elif self.deliveryTime and time < self.deliveryTime:
+        elif (
+            self.departureTime
+            and self.deliveryTime
+            and self.departureTime <= time < self.deliveryTime
+        ):
             self.status = "En Route"
         elif self.deliveryTime and time >= self.deliveryTime:
             self.status = "Delivered"

@@ -118,6 +118,19 @@ def deliver_packages(truck, distance_data, address_data, package_hash_table):
     truck.time = truck.depart_time
 
     while undelivered_packages:
+        available_packages = [
+            package
+            for package in undelivered_packages
+            if package.availableTime <= truck.time
+        ]
+
+        if not available_packages:
+            next_available_time = min(
+                package.availableTime for package in undelivered_packages
+            )
+            truck.time = next_available_time
+            continue
+
         nearest_package = min(
             undelivered_packages,
             key=lambda package: calculate_distance(
@@ -204,19 +217,19 @@ class Main:
                 print(
                     f"Package {package.id}: {package.address} {package.city} {package.state} "
                     f"{package.zipcode} {package.deadline} {package.weight} "
-                    f"Delivered at {package.delivery_time} by Truck 2"
+                    f"Delivered at {package.deliveryTime} by Truck 2"
                 )
             elif packageID in {13, 1, 14, 19, 16, 15, 20, 40, 29, 30, 31, 34, 37, 17}:
                 print(
                     f"Package {package.id}: {package.address} {package.city} {package.state} "
                     f"{package.zipcode} {package.deadline} {package.weight} "
-                    f"Delivered at {package.delivery_time} by Truck 1"
+                    f"Delivered at {package.deliveryTime} by Truck 1"
                 )
             elif packageID in {4, 5, 6, 28, 32, 33, 21, 22, 35, 27, 25, 26, 24}:
                 print(
                     f"Package {package.id}: {package.address} {package.city} {package.state} "
                     f"{package.zipcode} {package.deadline} {package.weight} "
-                    f"Delivered at {package.delivery_time} by Truck 3"
+                    f"Delivered at {package.deliveryTime} by Truck 3"
                 )
 
     def display_individual_package_status(self):
