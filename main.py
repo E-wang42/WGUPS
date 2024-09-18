@@ -261,7 +261,7 @@ class Main:
         package = package_hash_table.get(chosen)
         package.update_status(convert_timedelta)
 
-        truck_info = f"by Truck {package.truckID}" if package.truckID else ""
+        truck_info = f" | Truck {package.truckID}" if package.truckID else ""
         print(
             f"Package {package.id}: {package.address} {package.city} {package.state} "
             f"{package.zipcode} {package.deadline} {package.weight} {package.status}{truck_info}"
@@ -286,7 +286,7 @@ class Main:
             package = package_hash_table.get(packageID)
             package.update_status(convert_timedelta)
 
-            truck_info = f"by Truck {package.truckID}" if package.truckID else ""
+            truck_info = f" | Truck {package.truckID}" if package.truckID else ""
             print(
                 f"Package {package.id}: {package.address} {package.city} {package.state} "
                 f"{package.zipcode} {package.deadline} {package.weight} {package.status}{truck_info}"

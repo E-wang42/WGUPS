@@ -33,7 +33,6 @@ class Package:
 
         if self.departureTime and time < self.departureTime:
             self.status = "At Hub"
-            self.deliveryTime = None
         elif (
             self.departureTime
             and self.deliveryTime
